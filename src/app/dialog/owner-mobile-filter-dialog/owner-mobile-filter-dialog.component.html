@@ -1,0 +1,16 @@
+<div class="root" fxLayout="column">
+    <form [formGroup]="formGrp" (ngSubmit)="onSubmit()" >
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Mobile</mat-label>
+            <input matInput type="number" placeholder="Mobile" formControlName="mobile" [matAutocomplete]="auto"  (keyup)="onKeyUpEvent($event)">
+            <mat-autocomplete #auto="matAutocomplete" >
+                <mat-option *ngFor="let option of filteredMobileOptions | async" [value]="option.number" 
+                    (onSelectionChange)="onMobileSelectionChanged(option, $event)">
+                    {{ option.number }}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+        
+        <button mat-raised-button class="action-button" type="submit">Apply</button>
+    </form>
+</div>

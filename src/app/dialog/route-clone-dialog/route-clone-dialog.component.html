@@ -1,0 +1,46 @@
+<div class="root" fxLayout="column">
+    <form [formGroup]="formGrp" (ngSubmit)="onSubmit()" >
+        
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Route</mat-label>
+            <input matInput type="text" placeholder="Route" formControlName="route" [matAutocomplete]="auto" (keyup)="onKeyUpEventForRoute($event)">
+            <mat-autocomplete #auto="matAutocomplete" >
+                <mat-option *ngFor="let option of filteredRouteOptions | async" [value]="option.name" 
+                    (onSelectionChange)="onRouteSelectionChanged(option, $event)">
+                    {{ option.name }}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Start Town</mat-label>
+            <input matInput type="text" placeholder="Start Town" formControlName="from_town" [matAutocomplete]="autoFromTown" (keyup)="onKeyUpEvent($event)">
+            <mat-autocomplete #autoFromTown="matAutocomplete" >
+                <mat-option *ngFor="let option of fromTownFilteredOptions | async" [value]="option.name" 
+                    (onSelectionChange)="onFromTownSelectionChanged(option, $event)">
+                    {{ option.name }} ({{ option.district.name }})
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>End Town</mat-label>
+            <input matInput type="text" placeholder="End Town" formControlName="to_town" [matAutocomplete]="autoToTown" (keyup)="onKeyUpEvent($event)">
+            <mat-autocomplete #autoToTown="matAutocomplete" >
+                <mat-option *ngFor="let option of toTownFilteredOptions | async" [value]="option.name" 
+                    (onSelectionChange)="onToTownSelectionChanged(option, $event)">
+                    {{ option.name }} ({{ option.district.name }})
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Via</mat-label>
+            <input matInput type="text" placeholder="Via" formControlName="via">
+        </mat-form-field>
+
+
+
+        <button mat-raised-button class="action-button" type="submit">Create Route</button>
+    </form>
+</div>

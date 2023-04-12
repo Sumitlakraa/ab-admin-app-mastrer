@@ -1,0 +1,19 @@
+<div class="root" fxLayout="column">
+    <form [formGroup]="formGrp" (ngSubmit)="onSubmit()" >
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Upload Notification Image</mat-label>
+            <input matInput [value]="selectedFileName ? selectedFileName : 'Select File'" 
+                formControlName="file" readonly style="font-size: 12px;" />
+            <mat-error >Please select a Image file </mat-error>    
+
+            <input type="file" style="color: transparent;" accept=".png, .jpeg, .jpg" name="fileInput" 
+                placeholder="Upload Notification Image" (change)="selectFiles($event)">
+        </mat-form-field>
+
+        <button mat-raised-button class="action-button" type="submit">Upload</button>
+    </form>
+
+
+</div>
+
+

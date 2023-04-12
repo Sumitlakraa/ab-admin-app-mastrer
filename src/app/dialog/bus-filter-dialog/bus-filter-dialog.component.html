@@ -1,0 +1,16 @@
+<div class="root" fxLayout="column">
+    <form [formGroup]="formGrp" (ngSubmit)="onSubmit()" >
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Bus</mat-label>
+            <input matInput type="text" placeholder="Bus" formControlName="bus" [matAutocomplete]="auto" (keyup)="onKeyUpEvent($event)">
+            <mat-autocomplete #auto="matAutocomplete" >
+                <mat-option *ngFor="let option of filteredBusesOptions | async" [value]="option.number" 
+                    (onSelectionChange)="onBusSelectionChanged(option, $event)">
+                    {{ option.number }}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <button mat-raised-button class="action-button" type="submit">Apply</button>
+    </form>
+</div>

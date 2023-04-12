@@ -1,0 +1,16 @@
+<div *ngIf="busRouteDetails != null" style="font-size:24px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <mat-icon color="primary" class="icon">lens</mat-icon>
+    Bus Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <mat-icon color="warn" class="icon">lens</mat-icon>
+
+    Eta Status
+</div>
+
+<div class="root" style="margin-left: 40px; margin-top: 40px; position: relative;" *ngIf="busRouteDetails != null">
+    <app-bus-route-town *ngFor="let town of busRouteDetails.towns; let i = index" 
+        [routeTown]="town" [busRouteMappingMetaData]="busRouteMappingMetaData" [index] = "i" 
+        (boardingPointSatusChanged)="onBusRouteBordingPointStatusChanged()" (boardingPointETASatusChanged)="onBusRouteBordingPointEtaStatusChanged()" >
+    </app-bus-route-town>
+
+    <div style="border-left: 2px solid #C0C0C0; height: 100%; position: absolute; top: 0px; left: 40px; z-index: -1;"></div>
+</div>

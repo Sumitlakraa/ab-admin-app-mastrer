@@ -1,0 +1,70 @@
+<div style="height: 80px; padding-right: 20px;" fxLayoutAlign="end center">
+    <mat-chip-list aria-label="selection" style="margin-left: 20px;" fxFlex="60">
+        <mat-chip *ngFor="let filter of filters | keyvalue" (removed)="removeFilter(filter.key)">
+            {{ filtersDisplayValue.get(filter.key) }}
+            <button matChipRemove><mat-icon>cancel</mat-icon></button>
+        </mat-chip>
+    </mat-chip-list>
+
+    <div fxFlex="40" fxLayoutAlign="end center">
+
+        <button mat-raised-button class="action-button" (click)="onCloneRouteClick()"
+        style="padding-left: 50px; padding-right: 50px; margin-left: 10px;">Clone Route</button>
+        
+        <button mat-raised-button class="action-button" (click)="onAddRouteClick()"
+        style="padding-left: 50px; padding-right: 50px; margin-left: 10px;">Add Route</button>
+
+
+    </div>
+</div>
+
+<div style="width:fill; overflow-x:scroll;" style="height: 10px;">
+    <table mat-table [dataSource]="routes" class="mat-elevation-z8" >
+
+        <ng-container matColumnDef="route_id">
+            <th mat-header-cell *matHeaderCellDef> Route ID </th>
+            <td mat-cell *matCellDef="let route"> {{route.route_id}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="route_name">
+            <th mat-header-cell *matHeaderCellDef> 
+                <button class="filterButton" #routeButton mat-stroked-button color="primary" (click)="openRouteFilterDialog(routeButton)">Route Name</button> 
+            </th>
+            <td mat-cell *matCellDef="let route"> {{route.name}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let route"> {{route.status}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="bus">
+            <th mat-header-cell *matHeaderCellDef> #Bus </th>
+            <td mat-cell *matCellDef="let route"> {{route.bus_count}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="town_stops">
+            <th mat-header-cell *matHeaderCellDef> Town Stops </th>
+            <td mat-cell *matCellDef="let route"> {{route.town_count}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Action </th>
+            <td mat-cell *matCellDef="let route" style="text-align: center;" >
+                <button mat-stroked-button color="primary" (click)="onReverseRouteCreate($event, route)">Reverse Route</button>
+            </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onEditRouteClick(row)"></tr>
+    </table>
+
+    <mat-paginator #paginator class="mat-elevation-z8"
+        [length]="itemCount"
+        [pageSize]="30"
+        [pageSizeOptions]="[30]"
+        (page)="pageEvent = $event; onPaginateChange($event)"
+        aria-label="Select page"
+        showFirstLastButtons>
+    </mat-paginator>
+</div>

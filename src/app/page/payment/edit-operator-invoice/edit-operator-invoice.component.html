@@ -1,0 +1,101 @@
+<div class="root" fxLayout="column" style="padding-top: 80px;">
+  
+    <form [formGroup]="formGrp" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Operator (mob)</mat-label>
+          <input matInput type="text" placeholder="Bus Operator (mob)" formControlName="bus_operator" [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" >
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option.operatorNumber"
+              (onSelectionChange)="onOperatorSelectionChanged(option, $event)">
+              {{ option.operatorOrganizationName }} ({{ option.operatorNumber }})
+              </mat-option>
+          </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Company Name</mat-label>
+        <input matInput type="text" placeholder="Company Name" formControlName="company_name">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Operator Name</mat-label>
+        <input matInput type="text" placeholder="Operator Name" formControlName="owner_name">
+      </mat-form-field>
+
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Title</mat-label>
+            <input matInput type="text" placeholder="Title" 
+             formControlName="title">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Subtitle</mat-label>
+          <input matInput type="text" placeholder="Subtitle" 
+           formControlName="subtitle">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>GST Text</mat-label>
+          <input matInput type="text" placeholder="GST Text" 
+           formControlName="gst_text">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Date</mat-label>
+          <input matInput type="date" placeholder="Date" formControlName="date">
+        </mat-form-field>
+
+
+
+        <mat-form-field appearance="outline" floatLabel="always" >
+            <mat-label>Total Amount without Gst</mat-label>
+            <input matInput type="number" placeholder="Total Amount without Gst" formControlName="total_amount_without_gst" [attr.disabled]="true">
+        </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Payble Amount Without Gst</mat-label>
+            <input matInput type="number" placeholder="Payable Amount Without Gst" formControlName="payable_amount_without_gst">
+        </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>GST Amount</mat-label>
+          <input matInput type="number" placeholder="GST Amount" formControlName="gst_amount">
+      </mat-form-field>
+
+
+
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Payable Amount With Gst</mat-label>
+        <input matInput type="number" placeholder="Payable Amount With Gst" formControlName="payable_amount_with_gst">
+      </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always" >
+            <mat-label>Payment Mode</mat-label>
+            <mat-select formControlName="payment_mode">
+              <mat-option *ngFor="let payment_mode of payment_mode_options"  [value]="payment_mode">
+                {{ payment_mode }}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+
+
+
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Remarks</mat-label>
+        <input matInput type="text" placeholder="Remarks" 
+         formControlName="remarks">
+      </mat-form-field>
+
+
+
+      <mat-slide-toggle style="margin-bottom: 20px;" formControlName="is_visible" >is Visible</mat-slide-toggle><br>
+      <mat-slide-toggle style="margin-bottom: 20px;"  formControlName="is_paid"  *ngIf="this.userRole == 'super_admin' ||  this.userRole == 'owner' ||  this.userRole == 'accountant_and_editor'">Is Paid</mat-slide-toggle>
+      <mat-slide-toggle style="margin-bottom: 20px;"  formControlName="is_paid" [disabled]="true"  *ngIf="this.userRole != 'super_admin' && this.userRole != 'owner' && this.userRole != 'accountant_and_editor'">Is Paid</mat-slide-toggle>
+
+       
+      <div fxLayout="row">
+        <button mat-raised-button class="action-button" type="submit" *ngIf="this.userRole == 'accountant'  ||  this.userRole == 'super_admin' ||  this.userRole == 'accountant_and_editor' ||  this.userRole == 'owner'">Save / Update</button>
+        <!-- <button mat-raised-button class="action-button" style="margin-left: 20px;" *ngIf="bus?.bus_id != null" (click)="onMapRouteClick()">Map Route</button> -->
+        <!-- <button mat-raised-button class="action-button" type="button" style="margin-left: 20px; background-color: red;" *ngIf="bus?.bus_id != null &&  this.userRole == 'super_admin'" (click)="onDeleteBusClick()">Delete Bus</button> -->
+      </div>
+    </form>  
+</div>

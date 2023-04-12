@@ -1,0 +1,61 @@
+<div fxLayout="row" fxFlexFill>
+    <div class="root" fxLayout="column" style="padding-top: 80px;" fxFlex="50" >
+    
+        <form [formGroup]="formGrp" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Town</mat-label>
+                <input matInput type="text" placeholder="Town" formControlName="town" [matAutocomplete]="auto" (keyup)="onKeyUpEvent($event)" >
+                <mat-autocomplete #auto="matAutocomplete" >
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option.name"
+                    (onSelectionChange)="onStateSelectionChanged(option, $event)">
+                    {{ option.name }} ({{ option.district.name }})
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Bus Adda</mat-label>
+                <input #busAddaInput matInput type="text" placeholder="Bus Adda" formControlName="bus_adda">
+            </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Bus Adda (hindi)</mat-label>
+                <input matInput type="text" placeholder="Bus Adda (Hindi)" formControlName="bus_adda_hi">
+            </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always" >
+                <mat-label>Type</mat-label>
+                <mat-select formControlName="type">
+                  <mat-option *ngFor="let type of type_options"  [value]="type">
+                    {{ type }}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Latitude</mat-label>
+                <input #busAddaLat matInput type="number" placeholder="Latitude" formControlName="latitude">
+            </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Longitude</mat-label>
+                <input #busAddaLng matInput type="number" placeholder="Longitude" formControlName="longitude">
+            </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Geofence Radius</mat-label>
+                <input  matInput type="number" placeholder="Geofence Radius" formControlName="geofence_radius">
+            </mat-form-field>
+            
+            
+            <div fxLayout="row">
+                <button mat-raised-button class="action-button" type="submit">Save / Update</button>
+                <button mat-raised-button class="action-button" type="button" style="margin-left: 20px; background-color: red;" 
+            *ngIf="townBoardingPoint.id &&  this.userRole == 'super_admin'" (click)="onDeleteTownStoppageClick()">Delete Bus Adda</button>
+
+            <button mat-raised-button class="action-button" type="button" *ngIf="townBoardingPoint.id" style="margin-left: 20px;" (click)="onCheckBusesClick()">Check Buses</button>
+            </div>
+        </form>
+    </div>
+
+    
+
+    <div fxFlex="50" >
+        <div #mapContainer id="map" ></div>
+    </div>
+</div>

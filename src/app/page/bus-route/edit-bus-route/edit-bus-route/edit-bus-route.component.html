@@ -1,0 +1,16 @@
+<div fxLayout="row" fxFlexFill>
+
+    <div style="overflow-y: scroll; overflow-x: hidden; height: 100%;" fxFlex="50">
+        <app-edit-bus-route-metadata [busRouteMappingMetaData]="busRouteMappingMetaData" (notify)="requestBusRouteDetails($event)"></app-edit-bus-route-metadata>
+        <app-edit-bus-route-mapping [busRouteMappingMetaData]="busRouteMappingMetaData" [busRouteDetails]="busRouteDetails" 
+            (boardingPointSatusChanged)="onBusRouteTownBoardingPointStatusChanged()"></app-edit-bus-route-mapping>
+    </div>
+
+    <div #mapContainer id="map" fxFlex="50" ></div>
+
+    <div class="float-div">
+        <button mat-raised-button class="action-button" *ngIf="busRouteMappingMetaData.id != null" (click)="nextPage()" >Next</button>
+        <button mat-raised-button class="action-button" type="button" style="margin-left: 20px; background-color: red;" *ngIf="busRouteMappingMetaData.id != null &&  this.userRole == 'super_admin'" (click)="onDeleteBusRouteMappingClick()">Delete Bus Route Mapping</button>
+
+    </div>
+</div>

@@ -1,0 +1,121 @@
+<div class="root" fxLayout="column" style="padding-top: 80px;">
+  
+    <form [formGroup]="formGrp" (ngSubmit)="onSubmit()">
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Ticket PNR</mat-label>
+            <input matInput type="text" placeholder="Ticket PNR" formControlName="ticket_pnr">
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Booking Date</mat-label>
+            <input matInput type="text" placeholder="Booking Date" formControlName="booking_date">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Journey Date</mat-label>
+            <input matInput type="text" placeholder="Journey Date" formControlName="journey_date">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Bus Number</mat-label>
+            <input matInput type="text" placeholder="Bus Number" formControlName="bus_number">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Passenger Mobile</mat-label>
+            <input matInput type="tel" placeholder="Passenger Mobile" formControlName="passenger_mobile">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Normal Seats</mat-label>
+            <input matInput type="number" placeholder="Normal Seats" formControlName="normal_seats">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Single Sleeper</mat-label>
+            <input matInput type="number" placeholder="Single Sleeper" formControlName="single_sleeper">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Sharing Sleeper</mat-label>
+            <input matInput type="number" placeholder="Sharing Sleeper" formControlName="sharing_sleeper">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Payment Status</mat-label>
+            <input matInput type="text" placeholder="Payment Status" formControlName="payment_status">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Payment Type</mat-label>
+            <input matInput type="text" placeholder="Payment Type" formControlName="payment_type">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Total Amount Paid</mat-label>
+            <input matInput type="number" placeholder="Total Amount Paid" formControlName="total_amount_paid">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Discount</mat-label>
+            <input matInput type="number" placeholder="Discount" formControlName="discount">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Paid By Wallet</mat-label>
+            <input matInput type="text" placeholder="Paid By Wallet" formControlName="paid_by_wallet">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Cashback</mat-label>
+            <input matInput type="number" placeholder="Cashback" formControlName="cashback">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Operator name</mat-label>
+            <input matInput type="text" placeholder="Operator name" formControlName="operator_name">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Operator Mobile</mat-label>
+            <input matInput type="number" placeholder="Operator Mobile" formControlName="operator_mobile">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>POC name</mat-label>
+            <input matInput type="text" placeholder="POC name" formControlName="poc_name">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>POC Mobile</mat-label>
+            <input matInput type="number" placeholder="POC Mobile" formControlName="poc_mobile">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Conductor name</mat-label>
+            <input matInput type="text" placeholder="Conductor name" formControlName="conductor_name">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Conductor Mobile</mat-label>
+            <input matInput type="number" placeholder="Conductor Mobile" formControlName="conductor_mobile">
+        </mat-form-field>
+
+
+
+        <mat-form-field appearance="outline" floatLabel="always" >
+            <mat-label>Ticket Status</mat-label>
+            <mat-select formControlName="ticket_status">
+              <mat-option *ngFor="let option of ticket_status_options"  [value]="option">
+                {{ option }}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+      <div fxLayout="row">
+        <button mat-raised-button class="action-button" type="submit">Update</button>
+      </div>
+    </form>  
+</div>

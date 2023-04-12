@@ -1,0 +1,26 @@
+<div class="root" fxLayout="column">
+    <form [formGroup]="formGrp" (ngSubmit)="onSubmit()" >
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Town</mat-label>
+            <input matInput type="text" placeholder="Town" formControlName="town" [matAutocomplete]="auto"  (keyup)="onKeyUpEvent($event)">
+            <mat-autocomplete #auto="matAutocomplete" >
+                <mat-option *ngFor="let option of filteredTownOptions | async" [value]="option.name" 
+                    (onSelectionChange)="onTownSelectionChanged(option, $event)">
+                    {{ option.name }} ({{ option.district.name }})
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Distance From First Town</mat-label>
+            <input matInput type="number" placeholder="Distance" formControlName="distance">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Duration From First Town</mat-label>
+            <input matInput type="number" placeholder="Duration" formControlName="duration" >
+        </mat-form-field>
+
+        <button mat-raised-button class="action-button" type="submit">Add Town</button>
+    </form>
+</div>

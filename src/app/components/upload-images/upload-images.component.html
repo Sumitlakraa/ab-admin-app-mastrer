@@ -1,0 +1,55 @@
+<!-- <div *ngFor="let progressInfo of progressInfos">
+    <span>{{ progressInfo.fileName }}</span>
+    <mat-toolbar class="progress-bar">
+      <mat-progress-bar
+        color="accent"
+        [value]="progressInfo.value"
+      ></mat-progress-bar>
+      <span class="progress">{{ progressInfo.value }}%</span>
+    </mat-toolbar>
+  </div> -->
+  <mat-form-field appearance="fill" floatLabel="always">
+    <!-- <div> -->
+      <!-- <mat-toolbar>-->
+        <mat-label>{{ title }}</mat-label>
+        <input matInput [value]="selectedFileNames.length ? selectedFileNames : 'Select Images'" readonly style="font-size: 12px;" />
+        <!-- <button
+          mat-flat-button
+          color="primary"
+          [disabled]="!selectedFiles"
+          (click)="uploadFiles()"
+        >{{ title }}</button> -->
+      <!-- </mat-toolbar> -->
+      <input type="file" name="fileInput" style="color: transparent;"
+        accept="image/*" multiple (change)="selectFiles($event)" />
+    <!-- </div> -->
+  </mat-form-field>
+  <div>
+    <div *ngFor='let imageData of imagesOnServer; let i = index'>
+      <img  [src]="imageData.image" class="preview" style="width: auto; height: 80px;">
+      <mat-icon aria-hidden="false" (click)="deleteServerImage(i)">delete</mat-icon>
+    </div>
+
+    <div *ngFor='let preview of previews; let i = index'>
+      <img  [src]="preview" class="preview" style="width: auto; height: 80px;">
+      <mat-icon aria-hidden="false" (click)="deleteSelection(i)">delete</mat-icon>
+    </div>
+  </div>
+  <!-- <div *ngIf="message.length" class="message">
+    <ul *ngFor="let msg of message; let i = index">
+      <li>{{ msg }}</li>
+    </ul>
+  </div> -->
+  <!-- <mat-card class="list-card">
+    <mat-card-header>
+      <mat-card-title>List of Images</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list role="list">
+        <mat-list-item role="listitem" *ngFor="let image of imageInfos | async" class="list-item">
+          <p matLine><a href="{{ image.url }}">{{ image.name }}</a></p>
+          <img src="{{ image.url }}" alt="{{ image.name }}" height="50px"/>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card> -->

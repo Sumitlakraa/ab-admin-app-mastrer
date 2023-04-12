@@ -1,0 +1,30 @@
+<div fxLayout="row" fxFlexFill>
+
+    <div style="overflow-y: scroll; overflow-x: hidden; height: 100%;" fxFlex="50">
+        <div class="header-div" fxLayoutAlign="center center" >
+            Route : {{ routeMetaData.name }}
+        </div>
+
+        <div style="position: relative; margin-left: 20px; margin-top: 20px; margin-bottom: 20px;">
+
+            <button mat-raised-button class="action-button" (click)="onAddFristTownClick(firstTown)" 
+            style="padding-left: 20px; padding-right: 20px; margin-bottom: 30px; " #firstTown>+ Town</button>
+
+            <app-route-town *ngFor="let town of route.towns; let i = index" [routeTown]="town" [routeMetaData]="routeMetaData" [index] = "i"
+                (deleted)="onRouteTownDeleted($event)" (boardingPointAdded)="onRouteTownBoardingPointAdded($event)" (boardingPointDeleted)="onRouteTownBoardingPointDeleted($event)"></app-route-town>
+            <button mat-raised-button class="action-button" (click)="onAddTownClick()" 
+                style="padding-left: 20px; padding-right: 20px; margin-top: 30px; ">+ Town</button>
+
+            <div style="border-left: 2px solid #C0C0C0; height: 100%; position: absolute; top: 20px; left: 40px; z-index: -1;"></div>
+        </div>
+    </div>
+
+    <div #mapContainer id="map" fxFlex="50" ></div>
+
+    <div class="float-div">
+        <button mat-raised-button class="action-button" (click)="onSubmitClick()">Submit</button>
+        <button mat-raised-button class="action-button" type="button" style="margin-left: 20px; background-color: red;" *ngIf="routeMetaData.route_id != null &&  this.userRole == 'super_admin'" (click)="onDeleteRouteClick()">Delete Route</button>
+    </div>
+    
+
+</div>

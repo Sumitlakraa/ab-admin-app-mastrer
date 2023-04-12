@@ -1,0 +1,99 @@
+<mat-sidenav-container>
+    <mat-sidenav mode="side" opened>
+        <div style="height: 150px;" fxLayoutAlign="center center" >
+            <mat-icon svgIcon="logo" class="logo-icon"></mat-icon>
+            <div class="logo-label">ApniBus Admin</div>
+        </div>
+
+        <!-- <button mat-button class="menu-button" (click)="clickOnDashboard()">
+            <mat-icon [ngStyle]="{'color':'white'}" svgIcon="dashboard"></mat-icon>
+            <span>Dashboard</span>
+        </button> -->
+        <button mat-button class="menu-button" *ngIf="this.userRole == 'editor'  || this.userRole == 'support' || this.userRole == 'super_admin' ||  this.userRole == 'owner' ||  this.userRole == 'accountant_and_editor'"  (click)="clickOnListOperators()">
+            <mat-icon [ngStyle]="{'color':'white'}" svgIcon="profile"></mat-icon>
+            <span>Operators</span>
+        </button>
+        <button mat-button class="menu-button" *ngIf="this.userRole == 'editor'  || this.userRole == 'support' || this.userRole == 'super_admin' ||  this.userRole == 'owner' ||  this.userRole == 'accountant_and_editor'" (click)="clickOnListBuses()">
+            <mat-icon svgIcon="bus"></mat-icon>
+            <span>Buses</span>
+        </button>
+        <button mat-button class="menu-button" *ngIf="this.userRole == 'editor'  || this.userRole == 'support' || this.userRole == 'super_admin'||  this.userRole == 'owner' ||  this.userRole == 'accountant_and_editor' " (click)="clickOnListRoutes()">
+            <mat-icon svgIcon="route"></mat-icon>
+            <span>Routes</span>
+        </button>
+        <!-- <button mat-button class="menu-button">
+            <mat-icon svgIcon="payment"></mat-icon>
+            <span>Payments</span>
+        </button> -->
+
+        <!-- <button mat-button class="menu-button">
+            <mat-icon svgIcon="gps"></mat-icon>
+            <span>GPS Portal</span>
+        </button> -->
+        <button mat-button class="menu-button" *ngIf="this.userRole == 'editor'  || this.userRole == 'support' || this.userRole == 'super_admin' ||  this.userRole == 'owner' ||  this.userRole == 'accountant_and_editor'" (click)="clickOnListBusRouteMapping()">
+            <!-- <mat-icon svgIcon="notepad"></mat-icon> -->
+            <mat-icon > add_location</mat-icon>
+            <span>Bus Route Mapping</span>
+        </button>
+
+        <!-- <button mat-button class="menu-button" (click)="clickOnLedger()">
+            <mat-icon svgIcon="ledger"></mat-icon>
+            <span>Ledger</span>
+        </button> -->
+
+        <!-- <button mat-button class="menu-button">
+            <mat-icon svgIcon="receipt"></mat-icon>
+            <span>Request Approval</span>
+        </button> -->
+        <button mat-button class="menu-button" *ngIf="this.userRole == 'editor'  || this.userRole == 'support' || this.userRole == 'super_admin' ||  this.userRole == 'owner' ||  this.userRole == 'accountant_and_editor'" (click)="clickOnPricing()">
+            <!-- <mat-icon svgIcon="notepad"></mat-icon> -->
+            <mat-icon > paid</mat-icon>
+            <span>Pricing</span>
+        </button>
+
+        <button mat-button class="menu-button" *ngIf="this.userRole == 'editor'  || this.userRole == 'support' || this.userRole == 'super_admin' ||  this.userRole == 'owner' ||  this.userRole == 'accountant_and_editor'" (click)="clickOnConductorPricing()">
+            <!-- <mat-icon svgIcon="notepad"></mat-icon> -->
+            <mat-icon > paid</mat-icon>
+            <span>Conductor Pricing</span>
+        </button>
+
+        <!-- <button mat-button class="menu-button">
+            <mat-icon svgIcon="profile"></mat-icon>
+            <span>Users</span>
+        </button> -->
+        <button mat-button class="menu-button" *ngIf="this.userRole == 'editor'  ||  this.userRole == 'super_admin' || this.userRole == 'support' ||  this.userRole == 'owner' ||  this.userRole == 'accountant_and_editor'" (click)="clickOnListLocations()">
+            <!-- <mat-icon svgIcon="profile"></mat-icon> -->
+            <mat-icon> location_on</mat-icon>
+            <span>Location</span>
+        </button>
+        <button mat-button class="menu-button" *ngIf="this.userRole == 'editor'  || this.userRole == 'support' || this.userRole == 'super_admin' ||  this.userRole == 'owner' ||  this.userRole == 'accountant_and_editor'" (click)="clickOnPosConcession()">     
+            <!-- <mat-icon svgIcon="notepad"></mat-icon> -->
+            <mat-icon>trending_down</mat-icon>
+            <span>POS Concession</span>
+        </button>
+         <button mat-button class="menu-button" *ngIf="this.userRole == 'support'  ||  this.userRole == 'super_admin' ||  this.userRole == 'owner'" (click)="clickOnTickets()">
+            <mat-icon [ngStyle]="{'color':'white'}" svgIcon="ticket"></mat-icon>
+            <span>Tickets</span>
+         </button>
+        <button mat-button class="menu-button" *ngIf="this.userRole == 'accountant'  ||  this.userRole == 'super_admin' ||  this.userRole == 'owner' ||  this.userRole == 'accountant_and_editor' || this.userRole == 'support' "(click)="clickOnPayment()">     
+            <!-- <mat-icon svgIcon="notepad"></mat-icon> -->
+            <mat-icon>money</mat-icon>
+            <span>payment</span>
+        </button>
+
+        <button mat-button class="menu-button" *ngIf="this.userRole == 'support'  ||  this.userRole == 'super_admin' ||  this.userRole == 'owner'" (click)="clickOnNotification()">     
+            <!-- <mat-icon svgIcon="notepad"></mat-icon> -->
+            <mat-icon>notifications_active</mat-icon>
+            <span>Notification</span>
+        </button>
+
+        <button mat-button class="menu-button" (click)="clickOnLogout()">     
+            <mat-icon >power_settings_new</mat-icon>
+            <span>Logout</span>
+        </button>
+
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

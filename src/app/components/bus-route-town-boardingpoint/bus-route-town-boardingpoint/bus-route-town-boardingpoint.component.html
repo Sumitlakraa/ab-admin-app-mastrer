@@ -1,0 +1,50 @@
+<div>
+    <div style="display: inline-flex; margin-top: 20px;">
+        <label style="height: 40px; width: 40px; font-weight: bold; background-color: #C4C4C4;" fxLayoutAlign="center center" >
+            {{ index + 1 }}
+        </label>
+        <div style="background-color: white; border-top: 1px #C0C0C0 solid; border-bottom: 1px #C0C0C0 solid;">
+            <!-- <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Bus Adda</mat-label> -->
+                <input type="text" [(ngModel)]="routeTownBoardingPoint.townBoardingPoint.name" [disabled]="routeTownBoardingPoint.id != undefined" matInput [matAutocomplete]="auto" (keyup)="onKeyUpEvent($event)"
+                style="text-align: center; height: 37px; background-color: transparent; border: none; outline: none; font-size: 20px;">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let boardingPoint of townBoardingPointFilteredOptions" [value]="boardingPoint.name" 
+                        (onSelectionChange)="onTownBoardingPointSelectionChanged(boardingPoint, $event)">
+                    {{ boardingPoint.name }}
+                    </mat-option>
+                </mat-autocomplete>
+            <!-- </mat-form-field> -->
+        <!-- <label style="height: 40px; width: fit-content; padding-left: 10px; padding-right: 10px; background-color: #FFF8BC;" fxLayoutAlign="center center" >
+            {{ boarding_point }}
+        </label> -->
+        </div>
+        <div style="height: 40px; font-weight: bold; background-color: #C1E1FF; display: inline-flex; align-items: center;">
+            <input type="number" fxLayoutAlign="center center" [(ngModel)]="routeTownBoardingPoint.newDurationValue" 
+            style="border: none; text-align: right; width: 50px; border: none; outline: none; background-color: #C1E1FF; font-size: 20px;"  >
+            <span style="margin-right: 10px;">min</span>
+        </div>
+
+        <!-- <div *ngIf="routeTownBoardingPoint.saveState == 'Saved' && routeTownBoardingPoint.duration == routeTownBoardingPoint.newDurationValue" (click)="onDeleteClick_ForBoardingPoint()" 
+            style="height: 40px; width: 40px; font-weight: bold; background-color: #FF7D7D; display: inline-flex; align-items: center;">
+            <mat-icon aria-hidden="false" style="color: white; margin: auto;" >delete</mat-icon>
+        </div> -->
+        <div *ngIf="routeTownBoardingPoint.saveState == 'Changed' || routeTownBoardingPoint.duration != routeTownBoardingPoint.newDurationValue" (click)="onSaveOrUpdateClick_ForBoardingPoint()" 
+            style="height: 40px; width: 40px; font-weight: bold; background-color: #00841D; display: inline-flex; align-items: center;">
+            <mat-icon aria-hidden="false" style="color: white; margin: auto;" >done</mat-icon>
+        </div>
+        <div style="height: 40px; display: flex; justify-content: center; align-items: center; padding-left: 20px;" *ngIf="this.userRole == 'super_admin' || this.userRole == 'editor'" >
+
+            <mat-slide-toggle [(ngModel)]="routeTownBoardingPoint.newStatusValue"  (change)="toggleEvent($event)"></mat-slide-toggle>
+        </div>
+        <div style="height: 40px; display: flex; justify-content: center; align-items: center; padding-left: 20px;" *ngIf="this.userRole != 'super_admin' && this.userRole != 'editor'" >
+            <!-- <div style="font-size: 15px;">Status </div>&nbsp; -->
+            <mat-slide-toggle [(ngModel)]="routeTownBoardingPoint.newStatusValue" [disabled]="true" (change)="toggleEvent($event)"></mat-slide-toggle>
+        </div>
+
+        <div style="height: 40px; display: flex; justify-content: center; align-items: center; padding-left: 20px;"  >
+            <!-- <div style="font-size: 15px;">ETA </div>&nbsp; -->
+            <mat-slide-toggle [(ngModel)]="routeTownBoardingPoint.newEtaStatusValue" color="warn" (change)="toggleEventETA($event)"></mat-slide-toggle>
+        </div>
+    
+</div>

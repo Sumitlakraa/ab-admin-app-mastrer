@@ -1,0 +1,14 @@
+<div style="margin-left: 20px; margin-top: 20px;">
+    <mat-card class="mat-elevation-z0 tab-container">
+        <p>
+            <mat-button-toggle-group appearance="legacy" name="fontStyle" aria-label="Font Style">
+              <mat-button-toggle value="OperatorInvoice" [checked]="selectedToggleValue == 'OperatorInvoice'" 
+                (change)="onToggleButtonChange($event.value)">Operator Invoice</mat-button-toggle>
+              <mat-button-toggle value="ApnibusPayment" [checked]="selectedToggleValue == 'ApnibusPayment'" 
+                (change)="onToggleButtonChange($event.value)">Apnibus Payment</mat-button-toggle>
+            </mat-button-toggle-group>
+          </p>
+    </mat-card>
+
+    <router-outlet></router-outlet>
+</div>

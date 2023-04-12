@@ -1,0 +1,133 @@
+<div class="root" fxLayout="column" style="padding-top: 80px;">
+  
+    <form [formGroup]="formGrp" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Company Name</mat-label>
+            <input matInput type="text" placeholder="Company Name" formControlName="company_name">
+        </mat-form-field>
+
+        
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Company Name (हिंदी)</mat-label>
+            <input matInput type="text" placeholder="Company Name (हिंदी)" formControlName="company_name_hindi">
+        </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Owner Name</mat-label>
+            <input matInput type="text" placeholder="Owner Name" formControlName="owner_name">
+        </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Owner Number (OTP)*</mat-label>
+            <input matInput type="tel" placeholder="Owner Number" formControlName="owner_number">
+        </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Email ID</mat-label>
+            <input matInput type="email" placeholder="Email ID" formControlName="email">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>POC Name</mat-label>
+            <input matInput type="text" placeholder="POC Name" formControlName="poc_name">
+        </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>POC Number</mat-label>
+            <input matInput type="tel" placeholder="POC Number" formControlName="poc_number">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Town</mat-label>
+            <input matInput type="text" placeholder="Town" formControlName="town">
+        </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Address</mat-label>
+            <input matInput type="text" placeholder="Address" formControlName="address">
+        </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Bus Counts</mat-label>
+            <input matInput type="number" placeholder="Bus Counts" formControlName="bus_counts">
+        </mat-form-field>
+
+
+        <mat-label>Bank Account Details</mat-label>
+        <mat-form-field appearance="outline">
+            <mat-label>Account Type</mat-label>
+            <mat-select formControlName="account_type">
+              <mat-option *ngFor="let account_type of account_type_options"  [value]="account_type | lowercase">
+                {{ account_type }}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Bank Name</mat-label>
+            <input matInput type="text" placeholder="Bank Name" formControlName="bank_name">
+        </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Account Name</mat-label>
+            <input matInput type="text" placeholder="Account Name" formControlName="account_name">
+        </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Account Number</mat-label>
+            <input matInput type="text" placeholder="Account Number"  formControlName="account_number">
+        </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>IFSC Code</mat-label>
+            <input matInput type="text" placeholder="IFSC Code"  formControlName="ifsc_code">
+        </mat-form-field>
+        <!-- <app-upload-images title="Upload Cancel Cheque Images" [imagesOnServer]="operator.cancel_cheque_images" 
+            (notify)="onCancelChequeFilesSelected($event)" (notifyDeletionOfServerImages)="onUpdateOfImagesToBeDeletedFromServer($event)"></app-upload-images> -->
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>GST Number</mat-label>
+            <input matInput type="text" placeholder="GST Number"  formControlName="gst_number">
+        </mat-form-field>
+        <!-- <app-upload-images title="Upload GST Images" [imagesOnServer]="operator.gst_images" 
+            (notify)="onGSTFilesSelected($event)" (notifyDeletionOfServerImages)="onUpdateOfImagesToBeDeletedFromServer($event)"></app-upload-images> -->
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Adhaar Number</mat-label>
+            <input matInput type="text" placeholder="Adhaar Number"  formControlName="adhaar_number">
+        </mat-form-field>
+        <!-- <app-upload-images title="Upload Adhaar Images" [imagesOnServer]="operator.adhaar_images"
+            (notify)="onAdhaarFilesSelected($event)" (notifyDeletionOfServerImages)="onUpdateOfImagesToBeDeletedFromServer($event)"></app-upload-images> -->
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>PAN Number</mat-label>
+            <input matInput type="text" placeholder="PAN Number"  formControlName="pan_number">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Remark</mat-label>
+            <input matInput type="text" placeholder="Remark"  formControlName="remark">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always" >
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+              <mat-option *ngFor="let status of status_options"  [value]="status">
+                {{ status }}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!-- <app-upload-images title="Upload PAN Images" [imagesOnServer]="operator.pan_images"
+            (notify)="onPANFilesSelected($event)" (notifyDeletionOfServerImages)="onUpdateOfImagesToBeDeletedFromServer($event)"></app-upload-images> -->
+
+        <div fxLayout="row">
+            <button mat-raised-button class="action-button" type="submit">Save / Update</button>
+            <button mat-raised-button class="action-button" style="margin-left: 20px;" *ngIf="operator?.operator_id != null" (click)="onAddBusClick()">Add Bus</button>
+        </div>
+    </form>
+    
+</div>
+
+
+<mat-nav-list  style="padding-bottom: 0%!important; margin-bottom: 0%!important;" class="root">
+    <mat-list-item *ngFor="let remark of remarks" >
+  
+        
+        <div fxLayout="row"   >{{remark.date}}&nbsp; @{{remark.user_name}}&nbsp; - &nbsp;{{remark.remarks}}&nbsp;  
+  
+          </div>
+  
+    </mat-list-item>
+  </mat-nav-list>
+  

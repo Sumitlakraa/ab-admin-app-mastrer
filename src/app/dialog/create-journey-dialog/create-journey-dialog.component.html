@@ -1,0 +1,10 @@
+<div class="root" fxLayout="column">
+    <form [formGroup]="formGrp" (ngSubmit)="onSubmit()" >
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Enter Starting Date</mat-label>
+            <input matInput type="date" placeholder="Date" formControlName="date">
+        </mat-form-field>
+
+        <button mat-raised-button class="action-button" type="submit">Apply</button>
+    </form>
+</div>

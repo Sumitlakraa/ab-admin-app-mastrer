@@ -1,0 +1,41 @@
+<div fxLayout="row" fxFlexFill>
+    <div class="root" fxLayout="column" style="padding-top: 80px;" fxFlex="50" >
+    
+        <form [formGroup]="formGrp" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>District</mat-label>
+                <input matInput type="text" placeholder="District" formControlName="district" [matAutocomplete]="auto"  (keyup)="onKeyUpEvent($event)">
+                <mat-autocomplete #auto="matAutocomplete" >
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option.name"
+                    (onSelectionChange)="onStateSelectionChanged(option, $event)">
+                    {{ option.name }}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Town</mat-label>
+                <input #townInput matInput type="text" placeholder="Town" formControlName="town">
+            </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Town (hindi)</mat-label>
+                <input matInput type="text" placeholder="Town (Hindi)" formControlName="town_hi">
+            </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always" >
+                <mat-label>Type</mat-label>
+                <mat-select formControlName="type">
+                  <mat-option *ngFor="let type of type_options"  [value]="type">
+                    {{ type }}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <button mat-raised-button class="action-button" type="submit">Save / Update</button>
+            <button mat-raised-button class="action-button" type="button" style="margin-left: 20px; background-color: red;" *ngIf="town.id &&  this.userRole == 'super_admin'" (click)="onDeleteTownClick()">Delete Town</button>
+
+        </form>
+    </div>
+
+    <div fxFlex="50" >
+        <div #mapContainer id="map" ></div>
+    </div>
+</div>

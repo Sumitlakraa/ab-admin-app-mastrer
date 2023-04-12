@@ -1,0 +1,29 @@
+@use '@angular/material' as mat;
+
+/* You can add global styles to this file, and also import other style files */
+// @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+
+@include mat.core();
+
+$my-palette: mat.$green-palette;
+
+$primary: mat.define-palette($my-palette);
+$accent: mat.define-palette($my-palette);
+
+$theme: mat.define-light-theme($primary, $accent);
+
+@include mat.all-component-themes($theme);
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background: #fafafa; }
+
+.action-button {
+    background-color: mat.get-color-from-palette($primary);
+    color: mat.get-color-from-palette($primary, '600-contrast');
+}
+
+.mat-sort-header-arrow {
+    color :white !important;
+}

@@ -1,0 +1,36 @@
+<!-- <div class="root" style="padding-top: 80px;" fxLayout="row" >
+    
+        <form [formGroup]="formGrp" (ngSubmit)="onSubmit()">
+
+
+                <mat-form-field appearance="outline" floatLabel="always" style="padding-left: 20px; padding-right: 20px;margin-left: 10px;">
+                    <mat-label>Starting From</mat-label>
+                    <input matInput type="text" placeholder="Starting From" formControlName="town" [matAutocomplete]="auto" (keyup)="onKeyUpEvent($event)" >
+                    <mat-autocomplete #auto="matAutocomplete" >
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option.name"
+                        (onSelectionChange)="onStateSelectionChanged(option, $event)">
+                        {{ option.name }} ({{ option.district.name }})
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+
+
+                <mat-form-field appearance="outline" floatLabel="always" style="padding-left: 20px; padding-right: 20px;margin-left: 10px;">
+                    <mat-label>Going To</mat-label>
+                    <input matInput type="text" placeholder="Going To" formControlName="town" [matAutocomplete]="auto" (keyup)="onKeyUpEvent($event)" >
+                    <mat-autocomplete #auto="matAutocomplete" >
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option.name"
+                        (onSelectionChange)="onStateSelectionChanged(option, $event)">
+                        {{ option.name }} ({{ option.district.name }})
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" floatLabel="always" style="padding-left: 20px; padding-right: 100px;margin-left: 10px;">
+                    <mat-label>Date of Journey</mat-label>
+                    <input matInput type="date" placeholder="Date" formControlName="journeyDate">
+                </mat-form-field>
+
+                <button mat-raised-button class="action-button" type="submit">Search Buses</button>
+        </form>
+</div> -->

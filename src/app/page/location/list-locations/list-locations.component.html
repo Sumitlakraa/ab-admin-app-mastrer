@@ -1,0 +1,19 @@
+<div fxLayout="column" fxFlexFill>
+  <div style="margin-left: 20px; height: 80px;">
+      <mat-card class="mat-elevation-z0 tab-container">
+          <p>
+              <mat-button-toggle-group appearance="legacy" name="fontStyle" aria-label="Font Style">
+                <mat-button-toggle value="Districts" [checked]="selectedToggleValue == 'Districts'" 
+                  (change)="onToggleButtonChange($event.value)">Districts</mat-button-toggle>
+                <mat-button-toggle value="Towns" [checked]="selectedToggleValue == 'Towns'" 
+                  (change)="onToggleButtonChange($event.value)">Towns</mat-button-toggle>
+                <mat-button-toggle value="Bus Addas" [checked]="selectedToggleValue == 'Bus Addas'" 
+                  (change)="onToggleButtonChange($event.value)">Bus Addas</mat-button-toggle>
+              </mat-button-toggle-group>
+            </p>
+      </mat-card>
+  </div>
+  <div fxFlex="1 1 calc(100% - 100px)">
+    <router-outlet></router-outlet>
+  </div>
+</div>

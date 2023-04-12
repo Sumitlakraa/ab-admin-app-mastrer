@@ -1,0 +1,29 @@
+mat-card {
+    background-color: antiquewhite;
+    width: 200px;
+    margin-top: 10px;
+}
+
+#map {
+    height: 100%;
+    width: 800px;
+}
+
+.float-div {
+    position: fixed;
+    bottom: 5%;
+    right: 45%;
+    z-index: 20;
+}
+
+.header-div {
+    border-bottom: 1px solid #aaaaaa;
+    background-color: #202020;
+
+    min-height: 60px;
+    padding: 10px;
+
+    font-size: 18px;
+    font-weight: bold;
+    color: whitesmoke;
+}

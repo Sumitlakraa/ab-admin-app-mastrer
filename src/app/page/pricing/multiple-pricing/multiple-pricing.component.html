@@ -1,0 +1,14 @@
+<div style="margin-left: 20px; margin-top: 20px;">
+    <mat-card class="mat-elevation-z0 tab-container">
+        <p>
+            <mat-button-toggle-group appearance="legacy" name="fontStyle" aria-label="Font Style">
+              <mat-button-toggle value="RoutePricing" [checked]="selectedToggleValue == 'RoutePricing'" 
+                (change)="onToggleButtonChange($event.value)">Route Pricing</mat-button-toggle>
+              <mat-button-toggle value="BusSpecificPricing" [checked]="selectedToggleValue == 'BusSpecificPricing'" 
+                (change)="onToggleButtonChange($event.value)">Bus-wise Pricing</mat-button-toggle>
+            </mat-button-toggle-group>
+          </p>
+    </mat-card>
+
+    <router-outlet></router-outlet>
+</div>

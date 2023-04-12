@@ -1,0 +1,16 @@
+<div class="root" fxLayout="column">
+    <form [formGroup]="formGrp" (ngSubmit)="onSubmit()" >
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Company Name</mat-label>
+            <input matInput type="text" placeholder="Company Name" formControlName="companyName" [matAutocomplete]="auto" (keyup)="onKeyUpEvent($event)">
+            <mat-autocomplete #auto="matAutocomplete" >
+                <mat-option *ngFor="let option of filteredCompanyNameOptions | async" [value]="option.name" 
+                    (onSelectionChange)="onCompanyNameSelectionChanged(option, $event)">
+                    {{ option.name }}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+        
+        <button mat-raised-button class="action-button" type="submit">Apply</button>
+    </form>
+</div>

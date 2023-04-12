@@ -1,0 +1,110 @@
+<div style="height: 80px; padding-left: 20px; padding-right: 20px;" fxLayoutAlign="start center">
+    <mat-chip-list aria-label="selection">
+        <mat-chip *ngFor="let filter of filters | keyvalue" (removed)="removeFilter(filter.key)">
+            {{ filtersDisplayValue.get(filter.key) }}
+            <button matChipRemove><mat-icon>cancel</mat-icon></button>
+        </mat-chip>
+    </mat-chip-list>
+</div>
+
+<div style="width:fill; overflow-x:scroll;" style="height: 10px;">
+    <table mat-table [dataSource]="busSpecificPricingList" class="mat-elevation-z8" matSort (matSortChange)="announceSortChange($event)" >
+
+        <ng-container matColumnDef="category">
+            <th mat-header-cell *matHeaderCellDef>
+                Category
+                <!-- <button class="filterButton" #categoryButton mat-stroked-button color="primary" (click)="openCategoryFilterDialog(categoryButton)">Category</button>  -->
+            </th>
+            <td mat-cell *matCellDef="let busSpecificPriceEntry"> 
+                <div style="height: 30px; width: 30px;" 
+                    [style.background-color]="categoryStyle(busSpecificPriceEntry)" fxLayoutAlign="center center">
+                    {{ busSpecificPriceEntry.category.substr(0,1) | uppercase }} 
+                </div>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="bus">
+            <th mat-header-cell *matHeaderCellDef> 
+                <button class="filterButton" #busButton mat-stroked-button color="primary" (click)="openBusFilterDialog(busButton)">Bus</button> 
+            </th>
+            <td mat-cell *matCellDef="let busSpecificPriceEntry"> {{busSpecificPriceEntry.busNumber}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="from_town">
+            <th mat-header-cell *matHeaderCellDef>
+                <button class="filterButton" #fromTownButton mat-stroked-button color="primary" (click)="openFromFilterDialog(fromTownButton)">From</button> 
+            </th>
+            <td mat-cell *matCellDef="let busSpecificPriceEntry"> {{busSpecificPriceEntry.fromTownName}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="to_town">
+            <th mat-header-cell *matHeaderCellDef>
+                <button class="filterButton" #tillTownButton mat-stroked-button color="primary" (click)="openTillFilterDialog(tillTownButton)">Till</button> 
+            </th>
+            <td mat-cell *matCellDef="let busSpecificPriceEntry"> {{busSpecificPriceEntry.toTownName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="ac_state">
+            <th mat-header-cell *matHeaderCellDef>
+                AC / Non-AC
+                <!-- <button class="filterButton" #acButton mat-stroked-button color="primary" (click)="openAcFilterDialog(acButton)">AC / Non-AC</button>  -->
+            </th>
+            <td mat-cell *matCellDef="let busSpecificPriceEntry"> {{busSpecificPriceEntry.isAcAvailable == true ? 'AC' : 'Non-AC'}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="seater">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by seater" class="sort"> Seater </th>
+            <td mat-cell *matCellDef="let busSpecificPriceEntry">
+                <input type="number" [(ngModel)]="busSpecificPriceEntry.newNormalSeatPrice">
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="upper_sharing_sleeper">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by sharing-sleeper" class="sort"> Upper Sleeper (Sharing) </th>
+            <td mat-cell *matCellDef="let busSpecificPriceEntry">
+                <input type="number" [(ngModel)]="busSpecificPriceEntry.newUpperShareSleeperPrice">
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="upper_single_sleeper">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by single-sleeper" class="sort"> Upper Sleeper (Single) </th>
+            <td mat-cell *matCellDef="let busSpecificPriceEntry">
+                <input type="number" [(ngModel)]="busSpecificPriceEntry.newUpperSingleSleeperPrice">
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="lower_sharing_sleeper">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by sharing-sleeper" class="sort"> Lower Sleeper (Sharing) </th>
+            <td mat-cell *matCellDef="let busSpecificPriceEntry">
+                <input type="number" [(ngModel)]="busSpecificPriceEntry.newLowerShareSleeperPrice">
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="lower_single_sleeper">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by single-sleeper" class="sort"> Lower Sleeper (Single) </th>
+            <td mat-cell *matCellDef="let busSpecificPriceEntry">
+                <input type="number" [(ngModel)]="busSpecificPriceEntry.newLowerSingleSleeperPrice">
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let busSpecificPriceEntry">
+                <button *ngIf="busSpecificPriceEntry.newNormalSeatPrice != busSpecificPriceEntry.normalSeatPrice || busSpecificPriceEntry.newUpperSingleSleeperPrice != busSpecificPriceEntry.upperSingleSleeperPrice || busSpecificPriceEntry.newUpperShareSleeperPrice != busSpecificPriceEntry.upperShareSleeperPrice || busSpecificPriceEntry.newLowerSingleSleeperPrice!= busSpecificPriceEntry.lowerSingleSleeperPrice|| busSpecificPriceEntry.newLowerShareSleeperPrice!= busSpecificPriceEntry.lowerShareSleeperPrice"
+                    mat-stroked-button color="primary" (click)="onUpdateClick(busSpecificPriceEntry)">Update</button>
+            </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator #paginator class="mat-elevation-z8"
+        [length]="itemCount"
+        [pageSize]="30"
+        [pageSizeOptions]="[30]"
+        (page)="pageEvent = $event; onPaginateChange($event)"
+        aria-label="Select page"
+        showFirstLastButtons>
+    </mat-paginator>
+</div>

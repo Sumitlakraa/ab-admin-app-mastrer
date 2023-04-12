@@ -1,0 +1,23 @@
+<div class="root" fxLayout="column" style="padding-top: 80px;">
+  
+    <form [formGroup]="formGrp" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>State</mat-label>
+            <input matInput type="text" placeholder="State" formControlName="state" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" >
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option.name"
+                (onSelectionChange)="onStateSelectionChanged(option, $event)">
+                {{ option.name }}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>District</mat-label>
+            <input matInput type="text" placeholder="District" formControlName="district">
+        </mat-form-field>
+
+        <button mat-raised-button class="action-button" type="submit">Save / Update</button>
+        <button mat-raised-button class="action-button" type="button" style="margin-left: 20px; background-color: red;" *ngIf="district.id &&  this.userRole == 'super_admin'" (click)="onDeleteDistrictClick()">Delete District</button>
+
+    </form>
+</div>

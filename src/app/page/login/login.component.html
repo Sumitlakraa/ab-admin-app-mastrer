@@ -1,0 +1,16 @@
+<div fxLayoutAlign="center center" fxFlexFill>
+    <mat-card fxFlex="30" fxFlex.md="50" fxFlex.sm="60" fxFlex.xs="80">
+
+        <mat-card-header *ngIf="displayName; else newUser " >
+            <mat-card-title style="color: #35C355;">Welcome Back , {{displayName}}</mat-card-title>
+            <button mat-raised-button class="action-button" (click)="onSignInWithGoogleClick()">SIGN IN WITH GOOGLE</button>
+        </mat-card-header>
+        
+        <ng-template #newUser>
+            <mat-card-header>
+                <mat-card-title style="color: #35C355;">Welcome to ApniBus Admin</mat-card-title>
+                <button mat-raised-button class="action-button" (click)="onSignInWithGoogleClick()">SIGN IN WITH GOOGLE</button>
+            </mat-card-header>
+        </ng-template>
+    </mat-card>
+</div>

@@ -1,0 +1,44 @@
+table {
+    width: stretch;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+tr.mat-row {
+    background: white;
+}
+
+tr.mat-row:hover {
+    background: #d7ffd9;
+    cursor: pointer;
+}
+
+tr.mat-header-row {
+    background: #202020;
+}
+
+.mat-header-cell {
+    color: whitesmoke;
+    min-width: 150px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-cell {
+    min-width: 150px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-row:nth-child(even) {
+    background-color: white;
+}
+        
+.mat-row:nth-child(odd) {
+    background-color: whitesmoke;
+}
+
+mat-paginator {
+    margin-left: 20px;
+    margin-right: 20px;
+}

@@ -1,0 +1,12 @@
+<div class="root" fxLayout="column">
+    <form [formGroup]="formGrp" (ngSubmit)="onSubmit()" >
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Enter Reference Number</mat-label>
+            <input matInput type="text" placeholder="Reference Number" formControlName="reference_number">
+        </mat-form-field>
+
+        <button mat-raised-button class="action-button" type="submit">Settle Payment</button>
+    </form>
+</div>
+
+

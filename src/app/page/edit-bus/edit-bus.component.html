@@ -1,0 +1,179 @@
+<div class="root" fxLayout="column" style="padding-top: 80px;">
+  
+    <form [formGroup]="formGrp" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Bus Operator (mob)</mat-label>
+          <input matInput type="text" placeholder="Bus Operator (mob)" formControlName="bus_operator" [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" >
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option.operatorNumber"
+              (onSelectionChange)="onOperatorSelectionChanged(option, $event)">
+              {{ option.operatorOrganizationName }} ({{ option.operatorNumber }})
+              </mat-option>
+          </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Company Name</mat-label>
+        <input matInput type="text" placeholder="Company Name" formControlName="company_name">
+      </mat-form-field>
+
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Bus Number</mat-label>
+            <input matInput type="text" placeholder="Bus Number" (keypress)="keyPressAlphaNumeric($event)"
+             formControlName="bus_number">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Bus Make</mat-label>
+            <mat-select formControlName="bus_make">
+              <mat-option *ngFor="let bus_maker of bus_makers"  [value]="bus_maker">
+                {{ bus_maker }}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Seating Type</mat-label>
+            <mat-select formControlName="seating_type" (selectionChange)="onSelectionChanged($event)">
+              <mat-option *ngFor="let seating_type of seating_types"  [value]="seating_type | lowercase">
+                {{ seating_type }}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always" >
+            <mat-label>Total Seats</mat-label>
+            <input matInput type="number" placeholder="Total Seats" formControlName="total_seats" [attr.disabled]="true">
+        </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Total Single Sleepers</mat-label>
+            <input matInput type="number" placeholder="Total Lower Sleepers" formControlName="total_sleepers">
+        </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Total Sharing Sleepers</mat-label>
+          <input matInput type="number" placeholder="Total Lower Sharing Sleepers" formControlName="total_sharing_sleepers">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Total Single Sleepers</mat-label>
+        <input matInput type="number" placeholder="Total Upper Sleepers" formControlName="total_upper_sleepers">
+    </mat-form-field>
+    <mat-form-field appearance="outline" floatLabel="always">
+      <mat-label>Total Sharing Sleepers</mat-label>
+      <input matInput type="number" placeholder="Total Upper Sharing Sleepers" formControlName="total_upper_sharing_sleepers">
+  </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always" >
+            <mat-label>Layout</mat-label>
+            <mat-select formControlName="layout_type">
+              <mat-option *ngFor="let layout of layout_options"  [value]="layout">
+                {{ layout }}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always" >
+            <mat-label>GPS</mat-label>
+            <mat-select formControlName="gps_status">
+              <mat-option *ngFor="let gps of gps_options"  [value]="gps">
+                {{ gps }}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always" >
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+              <mat-option *ngFor="let status of status_options"  [value]="status">
+                {{ status }}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div style="margin-bottom: 20px;">
+          <mat-chip-list>
+              <mat-chip #c11="matChip" value="general" [selected]="bus.bus_type == 'general'" (click)="busTypeSelection(c11)">General</mat-chip>
+              <mat-chip #c12="matChip" value="express" [selected]="bus.bus_type == 'express'" (click)="busTypeSelection(c12)">Express</mat-chip>
+              <mat-chip #c13="matChip" value="luxury" [selected]="bus.bus_type == 'luxury'" (click)="busTypeSelection(c13)">Luxury</mat-chip>
+          </mat-chip-list>
+
+          <mat-chip-list >
+              <mat-chip #c21="matChip" value="Lok Parivahan" [selected]="bus.type == 'Lok Parivahan'" (click)="typeSelection(c21)">Lok Parivahan</mat-chip>
+              <mat-chip #c22="matChip" value="Private" [selected]="bus.type == 'Private'" (click)="typeSelection(c22)"> Private</mat-chip>
+          </mat-chip-list>
+        </div>
+
+        <mat-form-field appearance="outline" floatLabel="always" >
+          <mat-label>AC / NonAC</mat-label>
+          <mat-select formControlName="ac_state">
+            <mat-option *ngFor="let acState of ac_options"  [value]="acState">
+              {{ acState }}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>
+
+        <!-- <app-upload-images title="Upload Bus RC" [imagesOnServer]="bus.bus_rc_images" 
+            (notify)="onBusRCFilesSelected($event)" (notifyDeletionOfServerImages)="onUpdateOfImagesToBeDeletedFromServer($event)"></app-upload-images>
+        <app-upload-images title="Upload Bus" [imagesOnServer]="bus.bus_images" 
+            (notify)="onBusFilesSelected($event)" (notifyDeletionOfServerImages)="onUpdateOfImagesToBeDeletedFromServer($event)"></app-upload-images> -->
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Driver Name</mat-label>
+            <input matInput type="text" placeholder="Driver Name" formControlName="driver_name">
+        </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Driver Number</mat-label>
+            <input matInput type="tel" placeholder="Driver Number" formControlName="driver_number">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Conductor Name</mat-label>
+            <input matInput type="text" placeholder="Conductor Name" formControlName="conductor_name">
+        </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Conductor Number</mat-label>
+            <input matInput type="tel" placeholder="Conductor Number" formControlName="conductor_number">
+        </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always" *ngIf="bus?.bus_id != null">
+          <mat-label>Ticket Header</mat-label>
+          <input matInput type="tel" placeholder="Ticket Header" formControlName="ticket_header">
+      </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Cash Commission %</mat-label>
+          <input matInput type="number" placeholder="Cash Commission" formControlName="cash_commission">
+      </mat-form-field>
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>DigitalCommission %</mat-label>
+        <input matInput type="number" placeholder="Digital Commission" formControlName="digital_commission">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always">
+      <mat-label>Remark</mat-label>
+      <input matInput type="text" placeholder="Remark" formControlName="remark">
+  </mat-form-field>
+
+      <mat-slide-toggle style="margin-bottom: 20px;" formControlName="booking_allowed">Booking Allowed</mat-slide-toggle><br>
+      <mat-slide-toggle style="margin-bottom: 20px;" formControlName="is_pos_connected">Is Pos Connected</mat-slide-toggle><br>
+      <mat-slide-toggle style="margin-bottom: 20px;" formControlName="print_bus_number">Print Bus Number on Ticket</mat-slide-toggle><br>
+      <mat-slide-toggle style="margin-bottom: 20px;" formControlName="pos_lock">POS Lock</mat-slide-toggle>
+
+
+
+        <!-- <app-upload-images title="Upload Adhaar Photo" [imagesOnServer]="bus.adhaar_images" 
+            (notify)="onAdhaarFilesSelected($event)" (notifyDeletionOfServerImages)="onUpdateOfImagesToBeDeletedFromServer($event)"></app-upload-images> -->
+
+      <div fxLayout="row">
+        <button mat-raised-button class="action-button" type="submit">Save / Update</button>
+        <button mat-raised-button class="action-button" style="margin-left: 20px;" *ngIf="bus?.bus_id != null" (click)="onMapRouteClick()">Map Route</button>
+        <button mat-raised-button class="action-button" type="button" style="margin-left: 20px; background-color: red;" *ngIf="bus?.bus_id != null &&  this.userRole == 'super_admin'" (click)="onDeleteBusClick()">Delete Bus</button>
+      </div>
+    </form>  
+</div>
+
+
+<mat-nav-list  style="padding-bottom: 0%!important; margin-bottom: 0%!important;" class="root">
+  <mat-list-item *ngFor="let remark of remarks" >
+
+      
+      <div fxLayout="row"   >{{remark.date}}&nbsp; @{{remark.user_name}}&nbsp; - &nbsp;{{remark.remarks}}&nbsp;  
+
+        </div>
+
+  </mat-list-item>
+</mat-nav-list>

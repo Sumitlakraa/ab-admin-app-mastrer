@@ -1,0 +1,55 @@
+<div style="margin-bottom: 80px; position: relative; font-size: 20px;">
+
+    <div style="display: inline-flex;">
+        <label style="height: 40px; width: 40px; font-weight: bold; background-color: #FFE600;" fxLayoutAlign="center center" >
+            {{ index + 1 }}
+        </label>
+        <div style="background-color: #FFF8BC;">
+        <!-- <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Town</mat-label> -->
+            <input type="text" [(ngModel)]="routeTown.town.name" [disabled]="routeTown.id != undefined" matInput [matAutocomplete]="auto" (keyup)="onKeyUpEvent($event)"
+            style="text-align: center; height: 40px; border: none; background-color: transparent; border: none; outline: none; font-size: 20px;">
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let town of townFilteredOptions" [value]="town.name" (onSelectionChange)="onTownSelectionChanged(town, $event)">
+                {{ town.name }} ({{ town.district.name }})
+                </mat-option>
+            </mat-autocomplete>
+        <!-- </mat-form-field> -->
+        <!-- <label style="height: 40px; width: fit-content; padding-left: 10px; padding-right: 10px; background-color: #FFF8BC;" fxLayoutAlign="center center" >
+            {{ townData.town }}
+        </label> -->
+        </div>
+        <div style="height: 40px; font-weight: bold; background-color: #C1E1FF; display: inline-flex; align-items: center;">
+            <input type="number" fxLayoutAlign="center center" [(ngModel)]="routeTown.newDurationValue" 
+            style="border: none; text-align: right; width: 50px; border: none; outline: none; background-color: #C1E1FF; font-size: 20px; "  >
+            <span style="margin-right: 10px;">min</span>
+        </div>
+
+        <!-- <div *ngIf="routeTown.saveState == 'Saved' && routeTown.duration == routeTown.newDurationValue" (click)="onDeleteClick_ForTown()" 
+            style="height: 40px; width: 40px; font-weight: bold; background-color: #FF7D7D; display: inline-flex; align-items: center;">
+            <mat-icon aria-hidden="false" style="color: white; margin: auto;" >delete</mat-icon>
+        </div> -->
+        <div *ngIf="routeTown.saveState == 'Changed' || routeTown.duration != routeTown.newDurationValue" (click)="onSaveOrUpdateClick_ForTown()" 
+            style="height: 40px; width: 40px; font-weight: bold; background-color: #00841D; display: inline-flex; align-items: center;">
+            <mat-icon aria-hidden="false" style="color: white; margin: auto;" >done</mat-icon>
+        </div>
+        <div style="height: 40px; display: flex; justify-content: center; align-items: center; padding-left: 20px;" *ngIf="this.userRole == 'super_admin' || this.userRole == 'editor'">
+            <mat-slide-toggle [(ngModel)]="routeTown.newStatusValue"  (change)="toggleEvent($event)"></mat-slide-toggle>
+        </div>
+        <div style="height: 40px; display: flex; justify-content: center; align-items: center; padding-left: 20px;" *ngIf="this.userRole != 'super_admin' && this.userRole != 'editor'">
+            <mat-slide-toggle [(ngModel)]="routeTown.newStatusValue" [disabled]="true" (change)="toggleEvent($event)"></mat-slide-toggle>
+        </div>
+        <div style="height: 40px; display: flex; justify-content: center; align-items: center; padding-left: 20px;" >
+
+            <mat-slide-toggle class="eta-toggle" [(ngModel)]="routeTown.newEtaStatusValue" color="warn" (change)="toggleEventETA($event)"></mat-slide-toggle>
+        </div>
+    </div>
+
+    <div style="margin-left: 80px;">
+        <app-bus-route-town-boardingpoint *ngFor="let boarding_point of routeTown.boardingPoints; let i = index"
+            [index]="i" [routeTown]="routeTown" [routeTownBoardingPoint]="boarding_point" 
+            (statusChanged)="onBusRouteBoardingPointStatusChanged()"></app-bus-route-town-boardingpoint>
+    </div>
+
+    <div style="border-left: 2px solid #C0C0C0; height: 100%; position: absolute; top: 0px; left: 120px; z-index: -1;"></div>
+</div>

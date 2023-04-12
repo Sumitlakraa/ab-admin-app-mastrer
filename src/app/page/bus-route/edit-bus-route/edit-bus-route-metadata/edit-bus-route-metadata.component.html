@@ -1,0 +1,61 @@
+<div style="margin-left: 20px;  margin-top: 5px; text-align: center;" *ngIf="busRouteMappingMetaData.bus.is_pos_connected == true ">POS Connected</div>
+<div class="root" fxLayout="column" style="padding-top: 80px;">
+
+  
+    <form [formGroup]="formGrp" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Bus</mat-label>
+            <input matInput type="text" placeholder="Bus" formControlName="bus" [matAutocomplete]="autoBus"  (keyup)="onKeyUpEventForBus($event)">
+            <mat-autocomplete #autoBus="matAutocomplete">
+                <mat-option *ngFor="let option of filteredBusesOptions | async" [value]="option.number" 
+                (onSelectionChange)="onBusSelectionChanged(option, $event)" >
+                {{ option.number }}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Route</mat-label>
+            <input matInput type="text" placeholder="Route" formControlName="route" [matAutocomplete]="autoRoute" (keyup)="onKeyUpEvent($event)">
+            <mat-autocomplete #autoRoute="matAutocomplete" >
+                <mat-option *ngFor="let option of filteredRoutesOptions | async" [value]="option.name"
+                (onSelectionChange)="onRouteSelectionChanged(option, $event)">
+                {{ option.name }}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always" *ngIf="busRouteMappingMetaData.id != null">
+            <mat-label>Bus Route Name</mat-label>
+            <input matInput type="text" placeholder="Bus Route Name" formControlName="bus_route_name">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Start Time</mat-label>
+            <input matInput type="time" placeholder="Start Time" formControlName="start_time">
+        </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Interval</mat-label>
+            <input matInput type="number" placeholder="Interval" formControlName="interval">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always" >
+            <mat-label>Remarks</mat-label>
+            <input matInput type="text" placeholder="Remarks" formControlName="remark">
+        </mat-form-field>
+
+        <button mat-raised-button class="action-button" type="submit">Save / Update</button>
+    </form>
+
+    <mat-nav-list  style="padding-bottom: 0%!important; margin-bottom: 0%!important;" >
+        <mat-list-item *ngFor="let remark of remarks" >
+      
+            
+            <div fxLayout="row"   >{{remark.date}}&nbsp; @{{remark.user_name}}&nbsp; - &nbsp;{{remark.remarks}}&nbsp;  
+      
+              </div>
+      
+        </mat-list-item>
+      </mat-nav-list>
+    
+
+</div>

@@ -1,0 +1,34 @@
+<div class="root" fxLayout="column" style="padding-top: 80px;">
+
+    <form [formGroup]="formGrp" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Bus</mat-label>
+            <input matInput type="text" placeholder="Bus" formControlName="bus" [matAutocomplete]="autoBus">
+            <mat-autocomplete #autoBus="matAutocomplete">
+                <mat-option *ngFor="let option of filteredBusesOptions | async" [value]="option.number"
+                    (onSelectionChange)="onBusSelectionChanged(option, $event)">
+                    {{ option.number }}
+                </mat-option>
+            </mat-autocomplete>
+            <mat-error>error</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Concession Name</mat-label>
+            <input matInput type="text" placeholder="Concession Name" formControlName="name">
+            <mat-error>error</mat-error>
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Concession %</mat-label>
+            <input matInput type="number" placeholder="Concession %" formControlName="value" min="0" max="100">
+            <mat-error>please select between 0 to 100</mat-error>
+        </mat-form-field>
+
+        <mat-slide-toggle style="margin-bottom: 20px;" formControlName="is_active">Is Active</mat-slide-toggle>
+
+        <div fxLayout="row">
+            <button mat-raised-button class="action-button" type="submit">Save / Update</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,93 @@
+<div style="height: 80px; padding-right: 20px; margin-top: -70px;" fxLayoutAlign="end center">
+    <mat-chip-list aria-label="selection" style="margin-left: 20px;" fxFlex="60">
+        <mat-chip *ngFor="let filter of filters | keyvalue" (removed)="removeFilter(filter.key)">
+            {{ filtersDisplayValue.get(filter.key) }}
+            <button matChipRemove><mat-icon>cancel</mat-icon></button>
+        </mat-chip>
+    </mat-chip-list>
+
+    <div fxFlex="40" fxLayoutAlign="end center">
+        <!-- <button mat-raised-button class="action-button" (click)="onAddBusClick()"
+             style="padding-left: 50px; padding-right: 50px;">Add Invoice</button> -->
+    </div>
+</div>
+
+<div style="width:fill; overflow-x:scroll;" style="height: 10px;">
+    <table mat-table [dataSource]="apnibusPayment" class="mat-elevation-z8" >
+
+        <ng-container matColumnDef="company_name">
+            <th mat-header-cell *matHeaderCellDef>
+               <button class="filterButton" #companyButton mat-stroked-button color="primary" (click)="openCompanyNameFilterDialog(companyButton)">Company Name</button>
+            </th>
+            <td mat-cell *matCellDef="let operatorInvoice"> {{operatorInvoice.companyName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="owner_name">
+            <th mat-header-cell *matHeaderCellDef> 
+                <button class="filterButton" #ownerButton mat-stroked-button color="primary" (click)="openOwnerNameFilterDialog(ownerButton)">Owner Name</button>
+            </th>
+            <td mat-cell *matCellDef="let operatorInvoice"> {{operatorInvoice.operatorName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="mobile">
+            <th mat-header-cell *matHeaderCellDef>
+                <button class="filterButton" #mobileButton mat-stroked-button color="primary" (click)="openMobileFilterDialog(mobileButton)">Mobile</button>
+            </th>
+            <td mat-cell *matCellDef="let operatorInvoice"> {{operatorInvoice.operatorNumber}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Settlement </th>
+            <td mat-cell *matCellDef="let operatorInvoice" style="min-width: 100px;">
+                <button mat-stroked-button color="primary" #actionButton (click)="openPaymentSettleDialog(actionButton, operatorInvoice.id)" style="margin-left: 5px;" [disabled]="operatorInvoice.isSettle == true">Action</button>
+            </td>
+        </ng-container>
+
+
+
+        <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef>  Amount </th>
+            <td mat-cell *matCellDef="let operatorInvoice" style="min-width: 100px;"> {{operatorInvoice.Amount}} </td>
+        </ng-container>
+
+
+        <!-- <ng-container matColumnDef="total_amount">
+            <th mat-header-cell *matHeaderCellDef> Total Amount </th>
+            <td mat-cell *matCellDef="let bus"> {{bus.has_ac === true ? 'AC' : 'Non-AC'}} </td>
+        </ng-container> -->
+
+        <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef> Tickets Date </th>
+            <td mat-cell *matCellDef="let operatorInvoice"  style="min-width: 100px;"> {{operatorInvoice.date}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="payment_date">
+            <th mat-header-cell *matHeaderCellDef>Payment Date </th>
+            <td mat-cell *matCellDef="let operatorInvoice"  style="min-width: 100px;"> {{operatorInvoice.payment_date}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="reference_number">
+            <th mat-header-cell *matHeaderCellDef> Reference Number </th>
+            <td mat-cell *matCellDef="let operatorInvoice"> {{operatorInvoice.referenceNumber}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="is_settle">
+            <th mat-header-cell *matHeaderCellDef> Is Settle </th>
+            <td mat-cell *matCellDef="let operatorInvoice" style="min-width: 100px;"> {{operatorInvoice.isSettle}} </td>
+        </ng-container>
+
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
+    </table>
+
+    <mat-paginator #paginator class="mat-elevation-z8"
+        [length]="itemCount"
+        [pageSize]="50"
+        [pageSizeOptions]="[50]"
+        (page)="pageEvent = $event; onPaginateChange($event)"
+        aria-label="Select page"
+        showFirstLastButtons>
+    </mat-paginator>
+</div>

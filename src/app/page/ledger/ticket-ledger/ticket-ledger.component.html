@@ -1,0 +1,77 @@
+<div style="margin-left: 20px; margin-top: 20px; margin-right: 20px;" fxLayout="column">
+
+    <div fxLayoutAlign="end center" style="height: 100px;">
+        <mat-form-field appearance="fill">
+            <mat-label>Enter a date range</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+            <input matStartDate placeholder="Start date">
+            <input matEndDate placeholder="End date">
+            </mat-date-range-input>
+            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+    </div>
+
+    <div style="width:fill; overflow-x:scroll;" >
+      <table mat-table [dataSource]="ledgerDetails" class="mat-elevation-z8" >
+  
+          <ng-container matColumnDef="ticket_id">
+              <th mat-header-cell *matHeaderCellDef> Ticket ID </th>
+              <td mat-cell *matCellDef="let ledgerDetail"> {{ledgerDetail.id}} </td>
+          </ng-container>
+      
+          <ng-container matColumnDef="travel_date">
+              <th mat-header-cell *matHeaderCellDef> Travel Date </th>
+              <td mat-cell *matCellDef="let ledgerDetail"> {{ledgerDetail.id}} </td>
+          </ng-container>
+      
+          <ng-container matColumnDef="amount">
+              <th mat-header-cell *matHeaderCellDef> Amount </th>
+              <td mat-cell *matCellDef="let ledgerDetail"> {{ledgerDetail.id}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="gst">
+            <th mat-header-cell *matHeaderCellDef> GST (On Ticket) </th>
+            <td mat-cell *matCellDef="let ledgerDetail"> {{ledgerDetail.id}} </td>
+            </ng-container>
+  
+          <ng-container matColumnDef="discount">
+              <th mat-header-cell *matHeaderCellDef> Discount </th>
+              <td mat-cell *matCellDef="let ledgerDetail"> {{ledgerDetail.id}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="payment_mode">
+            <th mat-header-cell *matHeaderCellDef> Payment Mode </th>
+            <td mat-cell *matCellDef="let ledgerDetail"> {{ledgerDetail.id}} </td>
+        </ng-container>
+  
+          <ng-container matColumnDef="commission">
+              <th mat-header-cell *matHeaderCellDef> Commission </th>
+              <td mat-cell *matCellDef="let ledgerDetail"> {{ledgerDetail.id}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="gst_on_commission">
+            <th mat-header-cell *matHeaderCellDef> GST (On Commission) </th>
+            <td mat-cell *matCellDef="let ledgerDetail"> {{ledgerDetail.id}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="payable">
+            <th mat-header-cell *matHeaderCellDef> Payable </th>
+            <td mat-cell *matCellDef="let ledgerDetail"> {{ledgerDetail.id}} </td>
+        </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+  
+      <mat-paginator #paginator class="mat-elevation-z8"
+          [length]="itemCount"
+          [pageSize]="100"
+          [pageSizeOptions]="[100]"
+          (page)="pageEvent = $event; onPaginateChange($event)"
+          aria-label="Select page"
+          showFirstLastButtons>
+      </mat-paginator>
+  </div>
+</div>
